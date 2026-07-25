@@ -178,27 +178,37 @@
         }
 
         function stopGame() {
-            if (!running) return;
-            
-            cancelAnimationFrame(timerInterval);
-            running = false;
-            startBtn.disabled = false;
-            stopBtn.disabled = true;
-            
-            let finalTime = currentSeconds.toFixed(2);
-            let resultText = "";
-            
-            // 정확히 10.00초일 때만 성공 처리
-            if (finalTime === "10.00") {
-                resultText = "🎉 PERFECT! 맞췄으니까 한잔해! 🎉";
-            } else {
-                resultText = "❌ 언제 맞출거늬~ !";
-            }
-            
-            finalTimeDisplay.innerText = finalTime + "초";
-            resultMessageDisplay.innerText = resultText;
-            resultPanel.style.display = 'flex';
-        }
+    if (!running) return;
+    
+    // 1. 버튼 누른 '즉시' 시간을 먼저 캡처합니다.
+    let now = performance.now();
+    cancelAnimationFrame(timerInterval);
+    running = false;
+
+    // 2. 정확한 최종 시간을 계산합니다.
+    currentSeconds = (now - startTime) / 1000;
+    
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
+    
+    // 화면 타이머도 멈춘 순간의 값으로 즉시 업데이트
+    let finalTime = currentSeconds.toFixed(2);
+    timerDisplay.innerText = finalTime;
+    
+    let resultText = "";
+    
+    // 정확히 10.00초일 때만 성공 처리
+    if (finalTime === "10.00") {
+        resultText = "🎉 PERFECT! 맞췄으니까 한잔해! 🎉";
+    } else {
+        resultText = "❌ 언제 맞출거늬~ !";
+    }
+    
+    finalTimeDisplay.innerText = finalTime + "초";
+    resultMessageDisplay.innerText = resultText;
+    resultPanel.style.display = 'flex';
+}
+
     </script>
 
 </body>
