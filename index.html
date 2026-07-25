@@ -90,7 +90,9 @@
             border-radius: 10px;
             font-weight: bold;
             transition: all 0.2s;
+            touch-action: manipulation; /* 터치 클릭 지연(300ms) 제거 */
         }
+
         button:hover:not(:disabled) {
             transform: translateY(-3px);
         }
@@ -179,7 +181,13 @@
 
         function stopGame() {
     if (!running) return;
-    
+
+                 // 스탑 버튼 터치 지연 방지 (손이 닿자마자 실행)
+stopBtn.addEventListener('touchstart', function(e) {
+    e.preventDefault(); // 기본 클릭 지연 이벤트 방지
+    stopGame();
+}, { passive: false });
+            
     // 1. 버튼 누른 '즉시' 시간을 먼저 캡처합니다.
     let now = performance.now();
     cancelAnimationFrame(timerInterval);
