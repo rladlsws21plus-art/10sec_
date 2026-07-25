@@ -135,7 +135,7 @@
         </div>
     </div>
 
-    <div id="game-info">정확히 **10.00초**에 맞춰야 성공! (0.01초 오차도 불합격)</div>
+    <div id="game-info">4성사이다 전용게임</div>
 
     <script>
         let fontLink = document.createElement('link');
@@ -190,9 +190,9 @@
             
             // 정확히 10.00초일 때만 성공 처리
             if (finalTime === "10.00") {
-                resultText = "🎉 PERFECT! 인형 뽑기 성공! 🎉";
+                resultText = "🎉 PERFECT! 맞췄으니까 한잔해! 🎉";
             } else {
-                resultText = "❌ 꽝! 0.01초도 용납되지 않습니다!";
+                resultText = "❌ 언제 맞출거늬~ !";
             }
             
             finalTimeDisplay.innerText = finalTime + "초";
